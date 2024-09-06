@@ -1,6 +1,1 @@
-#include "person.h"
-
-
-void test() {
-	cout << "From Person";
-};
+#include "person.h";
