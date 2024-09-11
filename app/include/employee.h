@@ -7,6 +7,7 @@
 using namespace std;
 
 class Employee : public Person {
+protected:
 	double salary;
 public:
 	// Constractor
