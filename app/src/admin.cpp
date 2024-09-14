@@ -1,14 +1,13 @@
 #include "admin.h"
 
-Admin::Admin(string name, string password, string phone, string email, int id, double salary)
-:Employee(name,password,phone,email,id,salary)
+Admin::Admin(int id, string name, string phone, string email, string password, double salary) 
+	:Employee(id, name, phone, email, password, salary) {};
 
-{}
- void Admin:: displayInfo() {
-	 cout << "Name     : " << name << endl
-		 << "Password : " << password << endl
-		 << "Phone    : " << phone << endl
-		 << "Email    : " << email << endl
-		 << "Id       : " << id << endl
-		 << "Salary   : " << salary << endl;
-}
+void Admin::displayInfo() {
+	cout << "Id       : " << id << endl
+		<< "Name     : " << name << endl
+		<< "Phone    : " << phone << endl
+		<< "Email    : " << email << endl
+		<< "Password : " << password << endl
+		<< "Salary   : " << salary << endl;
+};

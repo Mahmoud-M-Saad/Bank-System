@@ -1,24 +1,24 @@
 #pragma once
 #include <iostream>
-#include <fstream>
-#include <string>
-#include "json.hpp"
 #include "person.h"
 using namespace std;
 
 class Employee : public Person {
 protected:
 	double salary;
-public:
-	// Constractor
-	Employee(string name, string password, string phone, string email, int id, double salary);
 
-	// Setter
+public:
+
+	//! Constructor
+	Employee(int id, string name, string phone, string email, string password, double salary);
+	
+
+	//! Setters
 	void setSalary(double salary);
 
-	// Getter
-	double getSalary();
+	//! Getters
+	double getSalary() const;
 
-	// Method
+	//! Methods
 	void displayInfo();
 };
