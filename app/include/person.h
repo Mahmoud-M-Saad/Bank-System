@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "json.hpp"
 #include "validation.h"
 using namespace std;
 
@@ -10,22 +9,23 @@ class Person {
 protected:
 	string name, password, phone, email;
 	int id;
-public:
-	// Constractor
-	Person(string name, string password, string phone, string email, int id);
 
-	// Setter
-	void setPassword(string password);
+public:
+	//! Constructor
+	Person(int id, string name, string phone, string email, string password);
+
+	//! Setters
 	void setPhone(string phone);
 	void setEmail(string email);
+	void setPassword(string password);
 
-	// Getter
-	string getName();
-	string getPassword();
-	string getPhone();
-	string getEmail();
-	int getId();
+	//! Getters
+	int getId() const;
+	string getName() const;
+	string getPhone() const;
+	string getEmail() const;
+	string getPassword() const;
 
-	// Method
+	//! Methods
 	virtual void displayInfo()=0;
 };

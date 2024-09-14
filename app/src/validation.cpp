@@ -5,7 +5,7 @@ static string trim(const string& str) {
     trimmed.erase(trimmed.begin(), find_if(trimmed.begin(), trimmed.end(), [](unsigned char ch) { return !isspace(ch); }));
     trimmed.erase(find_if(trimmed.rbegin(), trimmed.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), trimmed.end());
     return trimmed;
-}
+};
 static bool is_valid_name(string name) {
     // Trim spaces
     name = trim(name);
@@ -24,7 +24,7 @@ static bool is_valid_name(string name) {
     }
 
     return true;
-}
+};
 
 static bool is_valid_phone(const string& phone) {
     regex phoneRegex(R"(^01[0125][0-9]{8}$)");
@@ -69,7 +69,7 @@ static string hash_password(string& password) {
         }
     }
     return password;
-}
+};
 static bool is_valid_password(const string& password) {
     if (password.empty() || password.length() < 8) {
         errorMsg("Password must be at least 8 characters long.");
@@ -94,7 +94,7 @@ static bool is_valid_salary(double salary) {
         return false;
     }
     return true;
-}
+};
 
 string Validation::valid_name() {
     string name;
@@ -138,7 +138,7 @@ string Validation::valid_password() {
             return password;
         }
     }
-}
+};
 
 double Validation::valid_balance() {
     string balanceStr;
@@ -163,7 +163,7 @@ double Validation::valid_salary() {
     while (true) {
         askMsg("Enter the Employee Salary: ");
         getline(cin, salaryStr); stringstream ss(salaryStr);
-        if (ss >> salary && ss.eof()) { 
+        if (ss >> salary && ss.eof()) {
             if (is_valid_salary(salary)) {
                 return salary;
             }
@@ -172,4 +172,4 @@ double Validation::valid_salary() {
             errorMsg("Invalid input. Please enter a numeric value.");
         }
     }
-}
+};
