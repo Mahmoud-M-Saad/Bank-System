@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <string>
 #include "json.hpp"
@@ -11,7 +12,7 @@ protected:
 	double salary;
 public:
 	// Constractor
-	Employee(string name, string password, string phone, string email, int id, double salary);
+	Employee(int id,string name,  string phone, string email, string password, double salary);
 
 	// Setter
 	void setSalary(double salary);
@@ -21,4 +22,25 @@ public:
 
 	// Method
 	void displayInfo();
+
+
 };
+	static vector<Employee>emp;
+
+	// add
+	void addEmployee();
+
+	// search
+	Employee* searchEmployee(int id);
+
+	// list
+	void listEmployee(int id);
+
+	// edit
+	void editEmployee(int id);
+
+	// deleteAll
+	void deleteAllEmployee();
+
+	// delete
+	void deleteEmployee(int id);

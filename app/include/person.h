@@ -12,7 +12,7 @@ protected:
 	int id;
 public:
 	// Constractor
-	Person(string name, string password, string phone, string email, int id);
+	Person(int id, string name, string phone, string email, string password);
 
 	// Setter
 	void setPassword(string password);

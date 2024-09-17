@@ -1,7 +1,7 @@
 #include "person.h";
 
 // Constractor
-Person::Person(string name, string password, string phone, string email, int id)
+Person::Person(int id, string name, string phone, string email, string password)
 	:name(name), password(password), phone(phone), email(email), id(id) {}
 
 // Setter
