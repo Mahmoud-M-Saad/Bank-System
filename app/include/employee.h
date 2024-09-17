@@ -12,7 +12,6 @@ public:
 	//! Constructor
 	Employee(int id, string name, string phone, string email, string password, double salary);
 	
-
 	//! Setters
 	void setSalary(double salary);
 
@@ -22,3 +21,9 @@ public:
 	//! Methods
 	void displayInfo();
 };
+
+//! For JSON File
+void loadEmpsFromJson();
+void saveEmpsToJson();
+
+void printAllEmp();
