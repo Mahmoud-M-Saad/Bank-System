@@ -4,11 +4,34 @@
 using namespace std;
 
 class Client : public Person {
-	
+private:
+    double balance;
+
+public:
+
+    //! Constructor
+    Client(int id, string name, string phone, string email, string password, double balance);
+
+    //! Setters
+    void setBalance(double balance);
+
+    //! Getters
+    double getBalance() const;
+
+    //! Methods
+    void deposit();
+    void withdraw();
+    void displayInfo();
+    void checkBalance();
+    void transferTo(Client& recipient);
 };
 
-//! For JSON File
-void loadEmpsFromJson();
-void saveEmpsToJson();
+//! CRUD Operations
+void addClient();
+void removeAllClients();
 
-void printAllEmp();
+//! For JSON File
+void loadClientsFromJson();
+void saveClientsToJson();
+
+void printAllClients();

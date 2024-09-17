@@ -1,5 +1,8 @@
 #include "employee.h"
 
+//! To Store data in vector
+vector<Employee> emp;
+
 Employee::Employee(int id, string name, string phone, string email, string password, double salary)
     :Person(id, name, phone, email, password), salary(salary) {};
 
@@ -16,8 +19,21 @@ void Employee::displayInfo() {
         << "Salary   : " << salary << endl;
 };
 
-//! To Store data in vector
-vector<Employee> emp;
+void addEmp() {
+    string name = Validation::valid_name();
+    string phone = Validation::valid_phone();
+    string email = Validation::valid_email();
+    string password = Validation::valid_password();
+    double salary = Validation::valid_salary();
+    int id = (!emp.empty()) ? emp[emp.size() - 1].getId() + 1 : 0;
+
+    Employee newEmp = { id, name, phone, email, password, salary };
+    emp.push_back(newEmp);
+};
+
+void removeAllEmps() {
+    emp.clear();
+};
 
 //! To convert JSON type to Employee type and vice versa
 static Employee deserializeEmployee(const json& j) {
@@ -54,8 +70,8 @@ void saveEmpsToJson() {
 void printAllEmp() {
     emp.push_back(Employee(0, "Name", "Phone", "Email", "Password", 0.0));
     for (int i = 0; i < emp.size(); i++) {
-        cout << "Id       : " << emp[i].getId() << endl
-             << "Name     : " << emp[i].getName() << endl
+        cout << "Emp Id   : " << emp[i].getId() << endl
+             << "Emp Name : " << emp[i].getName() << endl
              << "Phone    : " << emp[i].getPhone() << endl
              << "Email    : " << emp[i].getEmail() << endl
              << "Password : " << emp[i].getPassword() << endl

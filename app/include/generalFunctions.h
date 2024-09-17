@@ -9,5 +9,8 @@ const void successMsg(const string& msg);
 const void askMsg(const string& msg);
 const void InfoMsg(const string& msg);
 
+//! Global Functions
+const string toDec(const double& amount);
+
 //! Print Function
 const void printUserName(const string& name);

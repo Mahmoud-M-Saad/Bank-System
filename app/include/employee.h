@@ -22,6 +22,10 @@ public:
 	void displayInfo();
 };
 
+//! CRUD Operations
+void addEmp();
+void removeAllEmps();
+
 //! For JSON File
 void loadEmpsFromJson();
 void saveEmpsToJson();

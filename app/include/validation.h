@@ -15,6 +15,7 @@ public:
     static string valid_phone();
     static string valid_email();
     static string valid_password();   
+    static double valid_amount(double min, double max);
     static double valid_balance();
     static double valid_salary();
 };

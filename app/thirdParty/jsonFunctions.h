@@ -9,7 +9,6 @@ using namespace std;
 // Template to load data from JSON
 template<typename Ty>
 void loadDataFromJSON(const string& filename, vector<Ty>& data, Ty(*deserialize)(const json&)) {
-    cout << "InLoad";
     ifstream infile("database/" + filename);
 
     if (infile.is_open()) {
