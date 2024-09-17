@@ -20,6 +20,11 @@ const void InfoMsg(const string& msg) {
 	cout << endl << "\033[1;35m" + msg + "\033[0m" << endl;
 };
 
+//! 20.2359 => 20.23
+const string toDec(const double& amount) {
+	return to_string(amount).erase(to_string(amount).find('.') + 3);
+}
+
 //! Print user name in big size
 const void printUserName(const string& name) {
 	string firstName = name.substr(0, name.find(' '));

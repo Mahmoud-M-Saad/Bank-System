@@ -54,8 +54,8 @@ void saveEmpsToJson() {
 void printAllEmp() {
     emp.push_back(Employee(0, "Name", "Phone", "Email", "Password", 0.0));
     for (int i = 0; i < emp.size(); i++) {
-        cout << "Id       : " << emp[i].getId() << endl
-             << "Name     : " << emp[i].getName() << endl
+        cout << "Emp Id   : " << emp[i].getId() << endl
+             << "Emp Name : " << emp[i].getName() << endl
              << "Phone    : " << emp[i].getPhone() << endl
              << "Email    : " << emp[i].getEmail() << endl
              << "Password : " << emp[i].getPassword() << endl

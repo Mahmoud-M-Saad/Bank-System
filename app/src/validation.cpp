@@ -11,6 +11,7 @@ static bool is_valid_name(string name) {
     name = trim(name);
 
     // Validate length
+    //if (name.length() < 5 || name.length() > 20 || !all_of(name.begin(), name.end(), ::isalpha)) {
     if (name.length() < 5 || name.length() > 20) {
         errorMsg("Name must be between 5 and 20 characters.");
         return false;
@@ -79,23 +80,6 @@ static bool is_valid_password(const string& password) {
     return true;
 };
 
-static bool is_valid_balance(const double& balance) {
-    if (balance < 1500.0 || balance > 1000000.0) {
-        errorMsg("Balance must be at least 1,500 L.E. and cannot exceed 1,000,000 L.E.");
-        return false;
-    }
-
-    return true;
-};
-
-static bool is_valid_salary(double salary) {
-    if (salary < 5000.0 || salary > 25000.0) {
-        errorMsg("Salary must be at least 5,000 L.E. and cannot exceed 25,000 L.E.");
-        return false;
-    }
-    return true;
-};
-
 string Validation::valid_name() {
     string name;
     while (true) {
@@ -140,15 +124,18 @@ string Validation::valid_password() {
     }
 };
 
-double Validation::valid_balance() {
-    string balanceStr;
-    double balance;
+double Validation::valid_amount(double min, double max) {
+    string amountStr;
+    double amount;
     while (true) {
-        askMsg("Enter the Client Balance: ");
-        getline(cin, balanceStr); stringstream bs(balanceStr);
-        if (bs >> balance && bs.eof()) {
-            if (is_valid_balance(balance)) {
-                return balance;
+        askMsg("Enter the amount: ");
+        getline(cin, amountStr); stringstream ss(amountStr);
+        if (ss >> amount && ss.eof()) {
+            if (amount >= min && amount <= max) {
+                return amount;
+            }
+            else {
+                errorMsg("The amount must be at least $" + toDec(min) + " and cannot exceed $" + toDec(max));
             }
         }
         else {
@@ -157,19 +144,10 @@ double Validation::valid_balance() {
     }
 };
 
+double Validation::valid_balance() {
+    return valid_amount(1500.0, 1000000.0);
+};
+
 double Validation::valid_salary() {
-    string salaryStr;
-    double salary;
-    while (true) {
-        askMsg("Enter the Employee Salary: ");
-        getline(cin, salaryStr); stringstream ss(salaryStr);
-        if (ss >> salary && ss.eof()) {
-            if (is_valid_salary(salary)) {
-                return salary;
-            }
-        }
-        else {
-            errorMsg("Invalid input. Please enter a numeric value.");
-        }
-    }
+    return valid_amount(5000.0, 25000.0);
 };
