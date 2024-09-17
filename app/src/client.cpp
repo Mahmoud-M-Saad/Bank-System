@@ -61,6 +61,18 @@ void Client::transferTo(Client& recipient) {
     }
 };
 
+void addClient() {
+    string name = Validation::valid_name();
+    string phone = Validation::valid_phone();
+    string email = Validation::valid_email();
+    string password = Validation::valid_password();
+    double balance = Validation::valid_balance();
+    int id = (!client.empty()) ? client[client.size() - 1].getId() + 1 : 0;
+
+    Client newClient = { id, name, phone, email, password, balance };
+    client.push_back(newClient);
+};
+
 void removeAllClients() {
     client.clear();
 };

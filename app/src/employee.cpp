@@ -19,9 +19,21 @@ void Employee::displayInfo() {
         << "Salary   : " << salary << endl;
 };
 
+void addEmp() {
+    string name = Validation::valid_name();
+    string phone = Validation::valid_phone();
+    string email = Validation::valid_email();
+    string password = Validation::valid_password();
+    double salary = Validation::valid_salary();
+    int id = (!emp.empty()) ? emp[emp.size() - 1].getId() + 1 : 0;
+
+    Employee newEmp = { id, name, phone, email, password, salary };
+    emp.push_back(newEmp);
+};
+
 void removeAllEmps() {
     emp.clear();
-}
+};
 
 //! To convert JSON type to Employee type and vice versa
 static Employee deserializeEmployee(const json& j) {

@@ -26,9 +26,12 @@ public:
     void transferTo(Client& recipient);
 };
 
+//! CRUD Operations
+void addClient();
+void removeAllClients();
+
 //! For JSON File
 void loadClientsFromJson();
 void saveClientsToJson();
-void removeAllClients();
 
 void printAllClients();

@@ -128,6 +128,7 @@ double Validation::valid_amount(double min, double max) {
     string amountStr;
     double amount;
     while (true) {
+        cout << endl;
         askMsg("Enter the amount: ");
         getline(cin, amountStr); stringstream ss(amountStr);
         if (ss >> amount && ss.eof()) {
