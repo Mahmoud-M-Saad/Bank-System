@@ -1,5 +1,8 @@
 #include "employee.h"
 
+//! To Store data in vector
+vector<Employee> emp;
+
 Employee::Employee(int id, string name, string phone, string email, string password, double salary)
     :Person(id, name, phone, email, password), salary(salary) {};
 
@@ -16,8 +19,9 @@ void Employee::displayInfo() {
         << "Salary   : " << salary << endl;
 };
 
-//! To Store data in vector
-vector<Employee> emp;
+void removeAllEmps() {
+    emp.clear();
+}
 
 //! To convert JSON type to Employee type and vice versa
 static Employee deserializeEmployee(const json& j) {

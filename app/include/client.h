@@ -29,5 +29,6 @@ public:
 //! For JSON File
 void loadClientsFromJson();
 void saveClientsToJson();
+void removeAllClients();
 
 void printAllClients();

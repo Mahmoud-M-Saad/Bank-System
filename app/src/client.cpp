@@ -1,5 +1,8 @@
 #include "client.h"
 
+//! To Store data in vector
+vector<Client> client;
+
 Client::Client(int id, string name, string phone, string email, string password, double balance)
     :Person(id, name, phone, email, password), balance(balance) {};
 
@@ -58,8 +61,9 @@ void Client::transferTo(Client& recipient) {
     }
 };
 
-//! To Store data in vector
-vector<Client> client;
+void removeAllClients() {
+    client.clear();
+};
 
 //! To convert JSON type to Client type and vice versa
 static Client deserializeClient(const json& j) {

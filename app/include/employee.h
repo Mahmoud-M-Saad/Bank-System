@@ -25,5 +25,6 @@ public:
 //! For JSON File
 void loadEmpsFromJson();
 void saveEmpsToJson();
+void removeAllEmps();
 
 void printAllEmp();
