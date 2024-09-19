@@ -16,6 +16,7 @@ public:
 	Person(int id, string name, string phone, string email, string password);
 
 	//! Setters
+	void setName(string name);
 	void setPhone(string phone);
 	void setEmail(string email);
 	void setPassword(string password);

@@ -11,13 +11,19 @@ void Client::setBalance(double balance) { this->balance = balance; };
 double Client::getBalance() const { return balance; };
 
 void Client::deposit() {
-    double amount = Validation::valid_balance();
+    double amount = Validation::valid_amount(1, 1000000.0);
+    double newBalance = balance + amount;
+    if (newBalance < 0 || newBalance > 1000000.0) {
+        errorMsg("Your balance must be at least $1500 and not exceed $1000000.");
+        errorMsg("Your balance now is $"+toDec(balance));
+        return;
+    }
     balance += amount;
     successMsg("Successfully added, Your balance now is: $" + toDec(balance));
 }
 
 void Client::withdraw() {
-    double amount = Validation::valid_balance();
+    double amount = Validation::valid_amount(1, 1000000.0);
     if (amount > balance) {
         errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
     }
@@ -45,10 +51,10 @@ void Client::checkBalance() {
 void Client::transferTo(Client& recipient) {
     double amount;
     if (recipient.balance <= 0) {
-        amount = Validation::valid_balance();
+        amount = Validation::valid_amount(1500, 1000000);
     }
     else {
-        amount = Validation::valid_amount(1,1000000);
+        amount = Validation::valid_amount(1, 1000000);
     }
 
     if (amount > balance) {
@@ -66,7 +72,7 @@ void addClient() {
     string phone = Validation::valid_phone();
     string email = Validation::valid_email();
     string password = Validation::valid_password();
-    double balance = Validation::valid_balance();
+    double balance = Validation::valid_amount(1500, 1000000);
     int id = (!client.empty()) ? client[client.size() - 1].getId() + 1 : 0;
 
     Client newClient = { id, name, phone, email, password, balance };
