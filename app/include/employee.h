@@ -19,12 +19,18 @@ public:
 	double getSalary() const;
 
 	//! Methods
+	void updateEmp();
 	void displayInfo();
 };
 
+extern vector<Employee> emp;
+
 //! CRUD Operations
 void addEmp();
-void removeAllEmps();
+Employee* getEmpByID(int id);
+void getAllEmps();
+void deleteEmpByID(int id);
+void deleteAllEmps();
 
 //! For JSON File
 void loadEmpsFromJson();

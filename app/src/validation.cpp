@@ -1,11 +1,20 @@
 #include "validation.h"
 
-static string trim(const string& str) {
-    string trimmed = str;
-    trimmed.erase(trimmed.begin(), find_if(trimmed.begin(), trimmed.end(), [](unsigned char ch) { return !isspace(ch); }));
-    trimmed.erase(find_if(trimmed.rbegin(), trimmed.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), trimmed.end());
-    return trimmed;
+static bool is_valid_id(int id) {
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        errorMsg("Invalid ID. Please provide a valid ID.");
+    }
+
+    return true;
 };
+
+static string trim(const string& str) {
+    regex spaceRegex("^\\s+|\\s+$");
+    return regex_replace(str, spaceRegex, "");
+}
+
 static bool is_valid_name(string name) {
     // Trim spaces
     name = trim(name);
@@ -80,6 +89,17 @@ static bool is_valid_password(const string& password) {
     return true;
 };
 
+int Validation::valid_id() {
+    int id;
+    while (true) {
+        askMsg("Enter ID: ");
+        cin >> id;
+        if (is_valid_id(id)) {
+            return id;
+        }
+    }
+};
+
 string Validation::valid_name() {
     string name;
     while (true) {
@@ -125,22 +145,18 @@ string Validation::valid_password() {
 };
 
 double Validation::valid_amount(double min, double max) {
-    string amountStr;
     double amount;
     while (true) {
         cout << endl;
         askMsg("Enter the amount: ");
-        getline(cin, amountStr); stringstream ss(amountStr);
-        if (ss >> amount && ss.eof()) {
-            if (amount >= min && amount <= max) {
-                return amount;
-            }
-            else {
-                errorMsg("The amount must be at least $" + toDec(min) + " and cannot exceed $" + toDec(max));
-            }
+        cin >> amount;
+        if (cin.fail() || amount < min || amount > max) {
+            errorMsg("Invalid amount. Please enter a value between $" + toDec(min) + " and $" + toDec(max));
+            cin.clear();  // clear error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // discard invalid input
         }
         else {
-            errorMsg("Invalid input. Please enter a numeric value.");
+            return amount;
         }
     }
 };
