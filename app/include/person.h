@@ -3,7 +3,6 @@
 #include <fstream>
 #include <string>
 #include "validation.h"
-//#include "improvedValidation.h"
 #include "jsonFunctions.h"
 using namespace std;
 

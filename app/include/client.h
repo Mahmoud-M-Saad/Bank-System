@@ -19,16 +19,22 @@ public:
     double getBalance() const;
 
     //! Methods
+    void updateClient();
+    void displayInfo();
     void deposit();
     void withdraw();
-    void displayInfo();
     void checkBalance();
     void transferTo(Client& recipient);
 };
 
+extern vector<Client> client;
+
 //! CRUD Operations
 void addClient();
-void removeAllClients();
+Client* getClientByID(int id);
+void getAllClients();
+void deleteClientByID(int id);
+void deleteAllClients();
 
 //! For JSON File
 void loadClientsFromJson();

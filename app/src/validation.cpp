@@ -1,170 +1,87 @@
 #include "validation.h"
 
-static bool is_valid_id(int id) {
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        errorMsg("Invalid ID. Please provide a valid ID.");
-    }
-
-    return true;
-};
-
-static string trim(const string& str) {
-    regex spaceRegex("^\\s+|\\s+$");
-    return regex_replace(str, spaceRegex, "");
-}
-
-static bool is_valid_name(string name) {
-    // Trim spaces
-    name = trim(name);
-
-    // Validate length
-    //if (name.length() < 5 || name.length() > 20 || !all_of(name.begin(), name.end(), ::isalpha)) {
-    if (name.length() < 5 || name.length() > 20) {
-        errorMsg("Name must be between 5 and 20 characters.");
-        return false;
-    }
-
-    // Validate alphabetic characters and spaces
-    regex nameRegex(R"([a-zA-Z\s]+)");
-    if (name.empty() || !regex_match(name, nameRegex)) {
-        errorMsg("Name must contain only alphabetic characters.");
-        return false;
-    }
-
-    return true;
-};
-
-static bool is_valid_phone(const string& phone) {
-    regex phoneRegex(R"(^01[0125][0-9]{8}$)");
-    if (!regex_match(phone, phoneRegex)) {
-        errorMsg("Invalid phone number.");
-        errorMsg("Please enter a valid Egyptian phone number (starts with 010,011,012,015 e.g., 01012345678).");
-        return false;
-    }
-
-    return true;
-};
-
-static bool is_valid_email(const string& email) {
-    regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
-    if (email.empty() || !regex_match(email, emailRegex) || email.length() > 50) {
-        errorMsg("Invalid email format. Please enter a valid email.");
-        return false;
-    }
-
-    //! Search for the email in DB
-    //if (get_name_by_email(email) != "Not Found") {
-    //    errorMsg("This email is already registered.");
-    //    return false;
-    //}
-
-    return true;
-};
-
 static string hash_password(string& password) {
     char ch;
     password.clear();
-    while ((ch = _getch()) != '\r') {  // '\r' is Enter key
-        if (ch == '\b') {  // Backspace
-            if (!password.empty()) {
-                cout << "\b \b";  // Erase '*' on backspace
-                password.pop_back();
-            }
+    while ((ch = _getch()) != '\r') {
+        if (ch == '\b' && !password.empty()) {
+            cout << "\b \b"; password.pop_back();
         }
         else {
-            password.push_back(ch);
-            cout << '*';
-        }
+            password.push_back(ch); cout << '*';
+        };
     }
     return password;
 };
-static bool is_valid_password(const string& password) {
-    if (password.empty() || password.length() < 8) {
-        errorMsg("Password must be at least 8 characters long.");
-        return false;
-    }
 
-    return true;
+template <typename Func>
+string validate_input(Func validation_func, const string& prompt, const string& error_msg) {
+    string input{};
+    while (true) {
+        askMsg(prompt);
+        if (prompt == "Enter Your Password: ") {
+            input = hash_password(input);
+            cout << endl;
+        }
+        else {
+            getline(cin, input);
+        }
+        if (validation_func(input)) { return input; };
+        errorMsg(error_msg);
+    }
+};
+
+static bool is_valid_id(const string& idStr) {
+    return !(idStr.empty() || !all_of(idStr.begin(), idStr.end(), ::isdigit));
+};
+static bool is_valid_name(const string& name) {
+    regex nameRegex(R"(^\s*([a-zA-Z]+(?:\s+[a-zA-Z]+)*)\s*$)");
+    return ((regex_match(name, nameRegex) && name.length() >= 5 && name.length() <= 20));
+};
+static bool is_valid_phone(const string& phone) {
+    regex phoneRegex(R"(^01[0125][0-9]{8}$)");
+    return regex_match(phone, phoneRegex);
+};
+static bool is_valid_email(const string& email) {
+    regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+    //! check if the email is already found
+    return (regex_match(email, emailRegex) && email.length() <= 40);
+};
+static bool is_valid_password(const string& password) {
+    return password.length() >= 8;
+};
+static bool is_valid_amount(const string& input, double min, double max) {
+    double amount;
+    stringstream ss(input); ss >> amount;
+    return !(ss.fail() || !ss.eof() || amount < min || amount > max);
 };
 
 int Validation::valid_id() {
-    int id;
-    while (true) {
-        askMsg("Enter ID: ");
-        cin >> id;
-        if (is_valid_id(id)) {
-            return id;
-        }
-    }
+    string errMsg = "Invalid ID. Please enter a numerical value.";
+    string idStr = validate_input(is_valid_id, "Enter ID: ", errMsg);
+    return stoi(idStr);
 };
-
 string Validation::valid_name() {
-    string name;
-    while (true) {
-        askMsg("Enter Your Name: ");
-        getline(cin, name);
-        if (is_valid_name(name)) {
-            return name;
-        }
-    }
+    string errMsg = "Invalid name. Name must be 5-20 alphabetic characters.";
+    return validate_input(is_valid_name, "Enter Your Name: ", errMsg);
 };
-
 string Validation::valid_phone() {
-    string phone;
-    while (true) {
-        askMsg("Enter your Egyptian Phone Number: ");
-        getline(cin, phone);
-        if (is_valid_phone(phone)) {
-            return phone;
-        }
-    }
+    string errMsg = "Invalid Egyptian phone number. Phone should start with 010, 011, 012, or 015 (e.g., 01012345678).";
+    return validate_input(is_valid_phone, "Enter Your Phone: ", errMsg);
 };
-
 string Validation::valid_email() {
-    string email;
-    while (true) {
-        askMsg("Enter your Email: ");
-        getline(cin, email);
-        if (is_valid_email(email)) {
-            return email;
-        }
-    }
+    string errMsg = "Invalid email format. (e.g., mail@gmail.com).";
+    return validate_input(is_valid_email, "Enter Your Email: ", errMsg);
 };
-
 string Validation::valid_password() {
-    string password;
-    while (true) {
-        askMsg("Enter your Password: ");
-        password = hash_password(password);
-        if (is_valid_password(password)) {
-            return password;
-        }
-    }
+    string errMsg = "Invalid password. Can't be less than 8 characters.";
+    return validate_input(is_valid_password, "Enter Your Password: ", errMsg);
 };
-
-double Validation::valid_amount(double min, double max) {
-    double amount;
-    while (true) {
-        cout << endl;
-        askMsg("Enter the amount: ");
-        cin >> amount;
-        if (cin.fail() || amount < min || amount > max) {
-            errorMsg("Invalid amount. Please enter a value between $" + toDec(min) + " and $" + toDec(max));
-            cin.clear();  // clear error flag
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // discard invalid input
-        }
-        else {
-            return amount;
-        }
-    }
-};
-
-double Validation::valid_balance() {
-    return valid_amount(1500.0, 1000000.0);
-};
-
-double Validation::valid_salary() {
-    return valid_amount(5000.0, 25000.0);
+double Validation::valid_amount(const double& min, const double& max) {
+    string errMsg = "Invalid amount. Please enter a value between $" + toDec(min) + "and $" + toDec(max);
+    string amountStr = validate_input(
+        [min, max](const string& input) { return is_valid_amount(input, min, max); },
+        "Enter the amount: ", errMsg
+    );
+    return stod(amountStr); // Convert validated string to double and return
 };
