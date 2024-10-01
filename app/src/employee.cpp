@@ -71,11 +71,11 @@ void addEmp() {
 	string email = Validation::valid_email();
 	string password = Validation::valid_password();
 	double salary = Validation::valid_amount(5000.0, 25000.0);
-	int id = (!emp.empty()) ? emp[emp.size() - 1].getId() + 1 : 0;
+	int id = (!emp.empty()) ? emp[emp.size() - 1].getId() + 1 : 1;
 
 	emp.emplace_back(id, name, phone, email, password, salary);
-	successMsg("Employee created successfully with ID: " + to_string(id)
-		+ "\n, Please remember this ID carefully.");
+	successMsg("Employee created successfully with ID: E256" + to_string(id)
+		+ ",\nPlease remember your ID carefully.\n");
 };
 Employee* getEmpByID(int id) {
 	if (is_Found(id)) {
@@ -86,7 +86,7 @@ Employee* getEmpByID(int id) {
 };
 void getAllEmps() {
 	if (emp.empty() || emp.size() <= 1) {
-		errorMsg("No employees to display.");
+		errorMsg("Sorry! No Employees to display.");
 		return;
 	}
 
@@ -145,7 +145,9 @@ void saveEmpsToJson() {
 
 //! Testing JSON Connection will be Deleted Later
 void printAllEmp() {
-    emp.push_back(Employee(0, "Name", "Phone", "Email", "Password", 0.0));
+	if (!emp.empty()) {
+		emp.push_back(Employee(0, "Name", "Phone", "Email", "Password", 0.0));
+	};
     for (int i = 0; i < emp.size(); i++) {
         cout << "Emp Id   : " << emp[i].getId() << endl
              << "Emp Name : " << emp[i].getName() << endl

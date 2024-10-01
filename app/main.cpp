@@ -10,6 +10,7 @@ int main() {
 
 	//! Project Logic
 	cout << "Welcome, Sir! This project is working great."<< endl;
+	addEmp();
 	printAllEmp();
 	printAllClients();
 
