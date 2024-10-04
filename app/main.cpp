@@ -6,6 +6,7 @@ int main() {
 	//! Get All Data from JSON Files
 	loadEmpsFromJson();
 	loadClientsFromJson();
+	//loadAdminsFromJson();
 	//! ============================
 
 	//! Project Logic
@@ -17,4 +18,5 @@ int main() {
 	//! Saving All Data to JSON Files
 	saveEmpsToJson();
 	saveClientsToJson();
+	//saveAdminsToJson();
 }
