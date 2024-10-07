@@ -1,4 +1,5 @@
 #include "client.h"
+#include <globalFun.h>
 
 //! To Store data in vector
 vector<Client> client;
@@ -10,7 +11,53 @@ Client::Client(int id, string name, string phone, string email, string password,
     :Person(id, name, phone, email, password), balance(balance) {};
 
 void Client::setBalance(double balance) { this->balance = balance; };
+int Client::getId() const { return id; };
+string Client::getName() const { return name; };
+string Client::getPassword() const { return password; };
 double Client::getBalance() const { return balance; };
+
+void Client::deposit() {
+    double amount = Validation::valid_amount(1, 1000000.0);
+    double newBalance = balance + amount;
+    if (newBalance < 0 || newBalance > 1000000.0) {
+        errorMsg("Your balance must be at least $1500 and not exceed $1000000.");
+        errorMsg("Your balance now is $"+toDec(balance));
+        return;
+    }
+    balance += amount;
+    successMsg("Successfully added, Your balance now is: $" + toDec(balance));
+}
+void Client::withdraw() {
+    double amount = Validation::valid_amount(1, 1000000.0);
+    if (amount > balance) {
+        errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
+    }
+    else {
+        balance -= amount;
+        successMsg("Wait for your money, Your balance now is: $" + toDec(balance));
+    }
+};
+void Client::checkBalance() {
+    InfoMsg("Current balance: $" + toDec(balance));
+}
+void Client::transferTo(Client& recipient) {
+    double amount;
+    if (recipient.balance <= 0) {
+        amount = Validation::valid_amount(1500, 1000000);
+    }
+    else {
+        amount = Validation::valid_amount(1, 1000000);
+    }
+
+    if (amount > balance) {
+        errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
+    }
+    else {
+        balance -= amount;
+        recipient.balance += amount;
+        successMsg("Successfully transferred $" + toDec(amount) + " to " + recipient.name);
+    }
+};
 
 void Client::updateClient() {
     if (!is_Found(id)) {
@@ -65,48 +112,6 @@ void Client::displayInfo() {
     cout << "| Balance: $" << setw(10) << fixed << setprecision(2) << balance << "|\n";
     cout << "==========================\n";
 }
-void Client::deposit() {
-    double amount = Validation::valid_amount(1, 1000000.0);
-    double newBalance = balance + amount;
-    if (newBalance < 0 || newBalance > 1000000.0) {
-        errorMsg("Your balance must be at least $1500 and not exceed $1000000.");
-        errorMsg("Your balance now is $"+toDec(balance));
-        return;
-    }
-    balance += amount;
-    successMsg("Successfully added, Your balance now is: $" + toDec(balance));
-}
-void Client::withdraw() {
-    double amount = Validation::valid_amount(1, 1000000.0);
-    if (amount > balance) {
-        errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
-    }
-    else {
-        balance -= amount;
-        successMsg("Wait for your money, Your balance now is: $" + toDec(balance));
-    }
-};
-void Client::checkBalance() {
-    InfoMsg("Current balance: $" + toDec(balance));
-}
-void Client::transferTo(Client& recipient) {
-    double amount;
-    if (recipient.balance <= 0) {
-        amount = Validation::valid_amount(1500, 1000000);
-    }
-    else {
-        amount = Validation::valid_amount(1, 1000000);
-    }
-
-    if (amount > balance) {
-        errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
-    }
-    else {
-        balance -= amount;
-        recipient.balance += amount;
-        successMsg("Successfully transferred $" + toDec(amount) + " to " + recipient.name);
-    }
-};
 
 void addClient() {
     string name = Validation::valid_name();
@@ -119,13 +124,13 @@ void addClient() {
     Client newClient = { id, name, phone, email, password, balance };
     client.push_back(newClient);
 };
-Client* getClientByID(int id) {
-    if (is_Found(id)) {
-        return &client[id];
-    }
-    errorMsg("This ID is not found, please enter a valid ID.");
-    return nullptr;
-};
+//Client* getClientByID(int id) {
+//    if (is_Found(id)) {
+//        return &client[id];
+//    }
+//    errorMsg("This ID is not found, please enter a valid ID.");
+//    return nullptr;
+//};
 void getAllClients() {
     if (client.empty() || client.size() <= 1) {
         errorMsg("Sorry! No clients to display.");
@@ -154,6 +159,52 @@ void deleteAllClients() {
     client.emplace_back(0, "C Name", "C Phone", "C Email", "C Password", 1500);
     successMsg("All clients deleted successfully.");
 };
+
+Client* getClientById() {
+    Client* c2 = nullptr;
+    int id = Validation::valid_id();
+    c2 = getUserByID(client, id);
+    while (c2 == nullptr) {
+        errorMsg("Client not found. Please enter a valid ID.");
+        id = Validation::valid_id();
+        c2 = getUserByID(client, id);
+    }
+    return c2;
+};
+
+void clientActions(char choice, Client& c) {    
+    Client* c2;
+    switch (choice) {
+    case '1':
+        c.displayInfo();
+        break;
+
+    case '2':
+        c.checkBalance();
+        break;
+
+    case '3':
+        c.deposit();
+        break;
+
+    case '4':
+        c.withdraw();
+        break;
+
+    case '5':
+        c2 = getClientById();
+        c.transferTo(*c2);
+        break;
+
+    case '6':
+        cout << "6- Update your Password\n";
+        break;
+
+    default:
+        errorMsg("Please choose a valid option.\n");
+        break;
+    }
+}
 
 //! To convert JSON type to Client type and vice versa
 static Client deserializeClient(const json& j) {
