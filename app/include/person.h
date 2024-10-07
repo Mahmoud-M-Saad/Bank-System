@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <utility>
 #include "validation.h"
 #include "jsonFunctions.h"
 using namespace std;
@@ -21,12 +22,17 @@ public:
 	void setEmail(string email);
 	void setPassword(string password);
 
+	virtual string getPassword() const = 0;  
+	virtual string getName() const = 0;      
+	virtual int getId() const = 0;
+	//virtual ~Person() = default;
+
 	//! Getters
-	int getId() const;
-	string getName() const;
+	//int getId() const;
+	//string getName() const;
 	string getPhone() const;
 	string getEmail() const;
-	string getPassword() const;
+	//string getPassword() const;
 
 	//! Methods
 	virtual void displayInfo()=0;

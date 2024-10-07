@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+//#include <cctype>
+#include <algorithm>
+#include <vector>
 #include <string>
 using namespace std;
 
@@ -13,4 +16,5 @@ const void InfoMsg(const string& msg);
 const string toDec(const double& amount);
 
 //! Print Function
+void drawText(string text);
 const void printUserName(const string& name);

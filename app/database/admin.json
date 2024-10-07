@@ -1,0 +1,26 @@
+[
+    {
+        "email": "Email",
+        "id": 0,
+        "name": "Name",
+        "password": "Password",
+        "phone": "Phone",
+        "salary": 0.0
+    },
+    {
+        "email": "mail@mail.com",
+        "id": 1,
+        "name": "Saad",
+        "password": "123456789",
+        "phone": "010",
+        "salary": 4000.0
+    },
+    {
+      "email": "mail2@mail.com",
+      "id": 2,
+      "name": "Abdo",
+      "password": "987654321",
+      "phone": "012",
+      "salary": 4000.0
+    }
+]

@@ -1,4 +1,5 @@
 #include "employee.h"
+#include <globalFun.h>
 
 //! To Store data in vector
 vector<Employee> emp;
@@ -111,6 +112,43 @@ void deleteAllEmps() {
 	emp.emplace_back(0, "Name", "Phone", "Email", "Password", 5000);
 	successMsg("All Employees deleted successfully.");
 };
+
+void employeeActions(char choice) {
+	Client* c2;
+	switch (choice) {
+	case '1':
+		addClient();
+		break;
+
+	case '2':
+		c2 = getClientById();
+		c2->displayInfo();
+		break;
+
+	case '3':
+		getAllClients();
+		break;
+
+	case '4':
+		c2 = getClientById();
+		c2->updateClient();
+		break;
+
+	case '5':
+		c2 = getClientById();
+		deleteClientByID(c2->getId());
+		break;
+
+	case '6':
+		deleteAllClients();
+		break;
+
+	default:
+		errorMsg("Please choose a valid option.\n");
+		break;
+	}
+}
+
 
 //! To convert JSON type to Employee type and vice versa
 static Employee deserializeEmployee(const json& j) {

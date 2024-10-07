@@ -8,7 +8,6 @@ private:
     double balance;
 
 public:
-
     //! Constructor
     Client(int id, string name, string phone, string email, string password, double balance);
 
@@ -16,6 +15,9 @@ public:
     void setBalance(double balance);
 
     //! Getters
+    int getId() const;
+    string getName() const;
+    string getPassword() const;
     double getBalance() const;
 
     //! Methods
@@ -31,10 +33,13 @@ extern vector<Client> client;
 
 //! CRUD Operations
 void addClient();
-Client* getClientByID(int id);
+//Client* getClientByID(int id);
 void getAllClients();
 void deleteClientByID(int id);
 void deleteAllClients();
+
+Client* getClientById();
+void clientActions(char choice, Client& c);
 
 //! For JSON File
 void loadClientsFromJson();
