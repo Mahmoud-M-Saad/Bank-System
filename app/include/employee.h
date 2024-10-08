@@ -15,6 +15,7 @@ public:
 	
 	//! Setters
 	void setSalary(double salary);
+	void setBalance(double balance) {};
 
 	//! Getters
 	double getSalary() const;
@@ -22,19 +23,10 @@ public:
 	string getName() const { return name; };
 	int getId() const { return id; };
 
-	//! Methods
-	void updateEmp();
 	void displayInfo();
 };
 
 extern vector<Employee> emp;
-
-//! CRUD Operations
-void addEmp();
-Employee* getEmpByID(int id);
-void getAllEmps();
-void deleteEmpByID(int id);
-void deleteAllEmps();
 
 void employeeActions(char choice);
 

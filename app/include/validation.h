@@ -12,6 +12,7 @@ using namespace std;
 class Validation {
 public:
 	static int valid_id();
+	static string valid_Sid();
 	static string valid_name();
 	static string valid_phone();
 	static string valid_email();

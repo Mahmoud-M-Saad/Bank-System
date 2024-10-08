@@ -1,7 +1,7 @@
 ﻿#include "admin.h"
 #include "client.h"
 #include "globalFun.h"
-#include <screen.h>
+#include "screen.h"
 using namespace std;
 
 int main() {
@@ -26,12 +26,14 @@ int main() {
         printUserName(name);
         printClientMenu();
         askMsg("Enter your choice: ");
-        cin >> choice;
-        if (choice < '1' || choice > '6') {
-            errorMsg("Invalid choice. Please choose a valid option.");
-        }
-        else {
-            clientActions(choice, *client);
+        while (true) {
+            cin >> choice;   cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (choice < '1' || choice > '7') {
+                askMsg("Please select only one of these options: ");
+            }
+            else {
+                clientActions(choice, *client); break;
+            }
         }
     }
     else if (auto emp = dynamic_cast<Employee*>(user)) {
@@ -40,13 +42,14 @@ int main() {
         printUserName(name);
         printEmployeeMenu();
         askMsg("Enter your choice: ");
-        cin >> choice;
-        if (choice < '1' || choice > '6') {
-            errorMsg("Invalid choice. Please choose a valid option.");
-        }
-        else {
-            cout << choice;
-            employeeActions(choice);
+        while (true) {
+            cin >> choice;   cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (choice < '1' || choice > '7') {
+                askMsg("Please select only one of these options: ");
+            }
+            else {
+                employeeActions(choice); break;
+            }
         }
     }
     else if (auto admin = dynamic_cast<Admin*>(user)) {
@@ -77,7 +80,9 @@ int main() {
 
     };
     //! =========================================
-
+    cout << "\033[1;35m";
+    drawText("Thank YOU!");
+    cout << "\033[0m" << endl;
 
 	//! =========================================
 	saveEmpsToJson();

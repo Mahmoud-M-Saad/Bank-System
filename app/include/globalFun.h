@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "validation.h"
 #include "admin.h"
 #include "client.h"
 #include "employee.h"
@@ -16,3 +15,7 @@ template <typename UserType>
 pair<bool, UserType*> checkCredentials(int id, const string& password, vector<UserType>& users);
 
 Person* login();
+
+//void adminActions(char choice);
+void employeeActions(char choice);
+void clientActions(char choice, Client& c);

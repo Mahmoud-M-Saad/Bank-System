@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <iomanip>
+#include <algorithm>  // For std::max
 #include "person.h"
 using namespace std;
 
@@ -13,6 +15,7 @@ public:
 
     //! Setters
     void setBalance(double balance);
+    void setSalary(double salary) {};
 
     //! Getters
     int getId() const;
@@ -21,7 +24,6 @@ public:
     double getBalance() const;
 
     //! Methods
-    void updateClient();
     void displayInfo();
     void deposit();
     void withdraw();
@@ -31,14 +33,7 @@ public:
 
 extern vector<Client> client;
 
-//! CRUD Operations
-void addClient();
-//Client* getClientByID(int id);
-void getAllClients();
-void deleteClientByID(int id);
-void deleteAllClients();
 
-Client* getClientById();
 void clientActions(char choice, Client& c);
 
 //! For JSON File

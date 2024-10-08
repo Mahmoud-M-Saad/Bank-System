@@ -4,17 +4,14 @@
 const void errorMsg(const string& msg) {
 	cout << endl << "\033[1;31m" + msg + "\033[0m" << endl;
 };
-
 //! green msg
 const void successMsg(const string& msg) {
 	cout << endl << "\033[1;32m" + msg + "\033[0m" << endl;
 };
-
 //! blue msg
 const void askMsg(const string& msg) {
 	cout << endl << "\033[1;34m" + msg + "\033[0m";
 };
-
 //! purple msg
 const void InfoMsg(const string& msg) {
 	cout << endl << "\033[1;35m" + msg + "\033[0m" << endl;
@@ -25,6 +22,7 @@ const string toDec(const double& amount) {
 	return to_string(amount).erase(to_string(amount).find('.') + 3);
 }
 
+//! Print user name in big size
 void print_one_char_line(const char* s) {
 	const char* x = "0123456789ABCDEF";
 	unsigned z = 0;
@@ -38,7 +36,6 @@ void print_one_char_line(const char* s) {
 		putchar((y & z) ? '@' : '  ');
 	}
 };
-
 const void print_n_char_line(const vector<string>& strings) {
 	int length = strings[0].size() / 2;
 
@@ -49,7 +46,6 @@ const void print_n_char_line(const vector<string>& strings) {
 		putchar('\n');
 	}
 };
-
 void drawText(string text) {
 	transform(text.begin(), text.end(), text.begin(), ::toupper);
 	vector < string > v;
@@ -144,8 +140,6 @@ void drawText(string text) {
 	}
 	print_n_char_line(v);
 };
-
-//! Print user name in big size
 const void printUserName(const string& name) {
 	string firstName = name.substr(0, name.find(' '));
 

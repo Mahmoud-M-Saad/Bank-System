@@ -28,12 +28,6 @@ public:
 	//virtual ~Person() = default;
 
 	//! Getters
-	//int getId() const;
-	//string getName() const;
 	string getPhone() const;
 	string getEmail() const;
-	//string getPassword() const;
-
-	//! Methods
-	virtual void displayInfo()=0;
 };

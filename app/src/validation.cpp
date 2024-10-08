@@ -34,6 +34,10 @@ string validate_input(Func validation_func, const string& prompt, const string& 
 static bool is_valid_id(const string& idStr) {
     return !(idStr.empty() || !all_of(idStr.begin(), idStr.end(), ::isdigit));
 };
+static bool is_valid_Sid(const string& Sid) {
+    regex SidRegex(R"(^\s*([a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+)*)\s*$)");
+    return (regex_match(Sid, SidRegex));
+};
 static bool is_valid_name(const string& name) {
     regex nameRegex(R"(^\s*([a-zA-Z]+(?:\s+[a-zA-Z]+)*)\s*$)");
     return ((regex_match(name, nameRegex) && name.length() >= 5 && name.length() <= 20));
@@ -56,10 +60,20 @@ static bool is_valid_amount(const string& input, double min, double max) {
     return !(ss.fail() || !ss.eof() || amount < min || amount > max);
 };
 
+//int Validation::valid_id() {
+//    string errMsg = "Invalid ID. Please enter a numerical value.";
+//    string idStr = validate_input(is_valid_id, "Enter ID: ", errMsg);
+//    return stoi(idStr);
+//};
 int Validation::valid_id() {
-    string errMsg = "Invalid ID. Please enter a numerical value.";
-    string idStr = validate_input(is_valid_id, "Enter ID: ", errMsg);
-    return stoi(idStr);
+    string errMsg = "Invalid ID.";
+    string Sid = validate_input(is_valid_Sid, "Enter Your ID: ", errMsg);
+    int id = stoi(Sid.erase(0, 4));
+    return id;
+};
+string Validation::valid_Sid() {
+    string errMsg = "Invalid ID.";
+    return validate_input(is_valid_Sid, "Enter Your ID: ", errMsg);
 };
 string Validation::valid_name() {
     string errMsg = "Invalid name. Name must be 5-20 alphabetic characters.";
