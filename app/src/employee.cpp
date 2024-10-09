@@ -1,14 +1,13 @@
 #include "employee.h"
-#include <globalFun.h>
+#include "authFun.h"
 
-//! To Store data in vector
 vector<Employee> emp;
-
 Employee::Employee(int id, string name, string phone, string email, string password, double salary)
     :Person(id, name, phone, email, password), salary(salary) {};
 
 void Employee::setSalary(double salary) { this->salary = salary; };
 double Employee::getSalary() const { return salary; };
+
 void Employee::displayInfo() {
 	cout << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
 		 << "|         Employee Card         |" << endl
@@ -20,9 +19,12 @@ void Employee::displayInfo() {
 		 << "    Salary: $" << salary << endl
 		 << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl;
 };
+void Employee::performAction() {
+    staffActionsOn<Client>(client, 'C', name);
+};
 
 //! To convert JSON type to Employee type and vice versa
-static Employee deserializeEmployee(const json& j) {
+static Employee JSONToEmp(const json& j) {
     Employee emp = {
         j.at("id").get<int>(),
         j.at("name").get<string>(),
@@ -33,7 +35,7 @@ static Employee deserializeEmployee(const json& j) {
     };
     return emp;
 };
-static json serializeEmployee(const Employee& emp) {
+static json EmpToJSON(const Employee& emp) {
     json j = {
         {"id", emp.getId()},
         {"name", emp.getName()},
@@ -46,24 +48,8 @@ static json serializeEmployee(const Employee& emp) {
 };
 
 void loadEmpsFromJson() {
-    loadDataFromJSON<Employee>("employee.json", emp, deserializeEmployee);
+    loadDataFromJSON<Employee>("employee.json", emp, JSONToEmp);
 };
 void saveEmpsToJson() {
-    saveDataToJSON<Employee>("employee.json", emp, serializeEmployee);
-};
-
-//! Testing JSON Connection will be Deleted Later
-void printAllEmp() {
-	if (!emp.empty()) {
-		emp.push_back(Employee(0, "Name", "Phone", "Email", "Password", 0.0));
-	};
-    for (int i = 0; i < emp.size(); i++) {
-        cout << "Emp Id   : " << emp[i].getId() << endl
-             << "Emp Name : " << emp[i].getName() << endl
-             << "Phone    : " << emp[i].getPhone() << endl
-             << "Email    : " << emp[i].getEmail() << endl
-             << "Password : " << emp[i].getPassword() << endl
-             << "Salary   : " << emp[i].getSalary() << endl 
-             << "\n=*=*=*=*=*=*=*=\n";
-    };
+    saveDataToJSON<Employee>("employee.json", emp, EmpToJSON);
 };

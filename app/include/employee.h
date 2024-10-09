@@ -9,7 +9,6 @@ protected:
 	double salary;
 
 public:
-
 	//! Constructor
 	Employee(int id, string name, string phone, string email, string password, double salary);
 	
@@ -19,19 +18,12 @@ public:
 
 	//! Getters
 	double getSalary() const;
-	string getPassword() const { return password; };
-	string getName() const { return name; };
-	int getId() const { return id; };
 
+	//! Methods
 	void displayInfo();
+	void performAction();
 };
 
 extern vector<Employee> emp;
-
-void employeeActions(char choice);
-
-//! For JSON File
 void loadEmpsFromJson();
 void saveEmpsToJson();
-
-void printAllEmp();

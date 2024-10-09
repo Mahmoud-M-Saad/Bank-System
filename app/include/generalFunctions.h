@@ -67,7 +67,7 @@ Ty* getUser(vector<Ty>& userVector) {
 	return user;
 };
 template <typename Ty>
-void getAllUsers(vector<Ty>& userVector, char userType) {
+void getAllUsers(vector<Ty>& userVector) {
 	if (userVector.empty() || userVector.size() <= 1) {
 		errorMsg("Sorry! No users to display.");
 		return;
@@ -132,7 +132,7 @@ void updateUser(Ty& user, char userType) {
 
 //! Delete
 template <typename Ty>
-void deleteUserByID(vector<Ty>& userVector, Ty* user) {
+void deleteUserByID(Ty* user, vector<Ty>& userVector) {
 	if (user == nullptr || user->getId() == 0) {
 		errorMsg("Invalid user. Cannot delete.");
 		return;

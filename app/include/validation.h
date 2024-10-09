@@ -11,6 +11,8 @@ using namespace std;
 
 class Validation {
 public:
+	static char valid_choice();
+	static char valid_sub_choice();
 	static int valid_id();
 	static string valid_Sid();
 	static string valid_name();

@@ -1,16 +1,11 @@
 #include "client.h"
-#include <globalFun.h>
+#include "authFun.h"
 
-//! To Store data in vector
 vector<Client> client;
-
 Client::Client(int id, string name, string phone, string email, string password, double balance)
     :Person(id, name, phone, email, password), balance(balance) {};
 
 void Client::setBalance(double balance) { this->balance = balance; };
-int Client::getId() const { return id; };
-string Client::getName() const { return name; };
-string Client::getPassword() const { return password; };
 double Client::getBalance() const { return balance; };
 
 void Client::displayInfo() {
@@ -24,6 +19,10 @@ void Client::displayInfo() {
          << "    Balance: $" << balance << endl
          << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl;
 };
+void Client::performAction() {
+    clientActions(*this, name);
+};
+
 void Client::deposit() {
     double amount = Validation::valid_amount(1, 1000000.0);
     double newBalance = balance + amount;
@@ -68,7 +67,7 @@ void Client::transferTo(Client& recipient) {
 };
 
 //! To convert JSON type to Client type and vice versa
-static Client deserializeClient(const json& j) {
+static Client JSONToClient(const json& j) {
     Client client = {
         j.at("id").get<int>(),
         j.at("name").get<string>(),
@@ -79,7 +78,7 @@ static Client deserializeClient(const json& j) {
     };
     return client;
 };
-static json serializeClient(const Client& client) {
+static json ClientToJSON(const Client& client) {
     json j = {
         {"id", client.getId()},
         {"name", client.getName()},
@@ -92,24 +91,8 @@ static json serializeClient(const Client& client) {
 };
 
 void loadClientsFromJson() {
-    loadDataFromJSON<Client>("client.json", client, deserializeClient);
+    loadDataFromJSON<Client>("client.json", client, JSONToClient);
 };
 void saveClientsToJson() {
-    saveDataToJSON<Client>("client.json", client, serializeClient);
-};
-
-//! Testing JSON Connection will be Deleted Later
-void printAllClients() {
-    if (!client.empty()) {
-        client.push_back(Client(0, "Name", "Phone", "Email", "Password", 0.0));
-    };
-    for (int i = 0; i < client.size(); i++) {
-        cout << "Client Id   : " << client[i].getId() << endl
-             << "Client Name : " << client[i].getName() << endl
-             << "Phone       : " << client[i].getPhone() << endl
-             << "Email       : " << client[i].getEmail() << endl
-             << "Password    : " << client[i].getPassword() << endl
-             << "balance     : " << client[i].getBalance() << endl
-             << "\n=*=*=*=*=*=*=*=\n";
-    };
+    saveDataToJSON<Client>("client.json", client, ClientToJSON);
 };

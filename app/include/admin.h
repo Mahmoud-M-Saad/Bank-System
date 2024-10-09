@@ -7,14 +7,12 @@ class Admin : public Employee {
 public:
 	//! Constructor
 	Admin(int id, string name, string phone, string email, string password, double salary);
+
 	//! Methods
 	void displayInfo();
+	void performAction();
 };
 
 extern vector<Admin> admin;
-
-//! For JSON File
 void loadAdminsFromJson();
 void saveAdminsToJson();
-
-void printAllAdmin();

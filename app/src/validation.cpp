@@ -31,11 +31,16 @@ string validate_input(Func validation_func, const string& prompt, const string& 
     }
 };
 
-static bool is_valid_id(const string& idStr) {
-    return !(idStr.empty() || !all_of(idStr.begin(), idStr.end(), ::isdigit));
+static bool is_valid_choice(const string& choice) {
+    regex choiceRegex(R"(^[1-8]$)"); // one char from 1 to 7
+    return (regex_match(choice, choiceRegex));
+};
+static bool is_valid_sub_choice(const string& sub_choice) {
+    regex sub_choiceRegex(R"(^[CEA]$)"); // one char C/c or E/e 
+    return (regex_match(sub_choice, sub_choiceRegex));
 };
 static bool is_valid_Sid(const string& Sid) {
-    regex SidRegex(R"(^\s*([a-zA-Z0-9]+(?:\s+[a-zA-Z0-9]+)*)\s*$)");
+    regex SidRegex(R"(^[EAC][a-zA-Z0-9]{3,4}\d{1,2}$)");
     return (regex_match(Sid, SidRegex));
 };
 static bool is_valid_name(const string& name) {
@@ -60,11 +65,16 @@ static bool is_valid_amount(const string& input, double min, double max) {
     return !(ss.fail() || !ss.eof() || amount < min || amount > max);
 };
 
-//int Validation::valid_id() {
-//    string errMsg = "Invalid ID. Please enter a numerical value.";
-//    string idStr = validate_input(is_valid_id, "Enter ID: ", errMsg);
-//    return stoi(idStr);
-//};
+char Validation::valid_choice() {
+    string qus = "Please select only one of these options: ";
+    string errMsg = "Please choose a valid option.";
+    return (validate_input(is_valid_choice, qus, errMsg)).at(0);
+};
+char Validation::valid_sub_choice() {
+    string qus = "Choose Operations on Client or Employee (C/E/A): ";
+    string errMsg = "Invalid input. Please enter only one character (C/E/A).";
+    return (validate_input(is_valid_sub_choice, qus, errMsg)).at(0);
+};
 int Validation::valid_id() {
     string errMsg = "Invalid ID.";
     string Sid = validate_input(is_valid_Sid, "Enter Your ID: ", errMsg);
