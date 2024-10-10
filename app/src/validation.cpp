@@ -77,29 +77,29 @@ char Validation::valid_sub_choice() {
 };
 int Validation::valid_id() {
     string errMsg = "Invalid ID.";
-    string Sid = validate_input(is_valid_Sid, "Enter Your ID: ", errMsg);
+    string Sid = validate_input(is_valid_Sid, "Enter ID: ", errMsg);
     int id = stoi(Sid.erase(0, 4));
     return id;
 };
 string Validation::valid_Sid() {
     string errMsg = "Invalid ID.";
-    return validate_input(is_valid_Sid, "Enter Your ID: ", errMsg);
+    return validate_input(is_valid_Sid, "Enter ID: ", errMsg);
 };
 string Validation::valid_name() {
     string errMsg = "Invalid name. Name must be 5-20 alphabetic characters.";
-    return validate_input(is_valid_name, "Enter Your Name: ", errMsg);
+    return validate_input(is_valid_name, "Enter Name: ", errMsg);
 };
 string Validation::valid_phone() {
     string errMsg = "Invalid Egyptian phone number. Phone should start with 010, 011, 012, or 015 (e.g., 01012345678).";
-    return validate_input(is_valid_phone, "Enter Your Phone: ", errMsg);
+    return validate_input(is_valid_phone, "Enter Phone: ", errMsg);
 };
 string Validation::valid_email() {
     string errMsg = "Invalid email format. (e.g., mail@gmail.com).";
-    return validate_input(is_valid_email, "Enter Your Email: ", errMsg);
+    return validate_input(is_valid_email, "Enter Email: ", errMsg);
 };
 string Validation::valid_password() {
     string errMsg = "Invalid password. Can't be less than 8 characters.";
-    return validate_input(is_valid_password, "Enter Your Password: ", errMsg);
+    return validate_input(is_valid_password, "Enter Password: ", errMsg);
 };
 double Validation::valid_amount(const double& min, const double& max) {
     string errMsg = "Invalid amount. Please enter a value between $" + toDec(min) + "and $" + toDec(max);

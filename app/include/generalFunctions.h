@@ -134,9 +134,9 @@ void updateUser(Ty& user, char userType) {
 template <typename Ty>
 void updatePassword(Ty* user) {
 	while (true) {
-		string password = Validation::valid_password("Enter Your Old Password: ");
+		string password = Validation::valid_password("Enter the Old Password: ");
 		if (user->getPassword() == password) {
-			user->setPassword(Validation::valid_password("Enter Your New Password: "));
+			user->setPassword(Validation::valid_password("Enter the New Password: "));
 			break;
 		}
 		errorMsg("Incorrect password.");
