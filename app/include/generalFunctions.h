@@ -81,7 +81,6 @@ void getAllUsers(vector<Ty>& userVector) {
 //! Update
 template <typename Ty>
 void updateUser(Ty& user, char userType) {
-	user->setPassword(Validation::valid_password("Enter Your New Password: "));
 	char option;
 	askMsg("What is the field you want to edit?\n");
 	askMsg("1. Name\n2. Phone\n3. Email\n4. Password");
