@@ -15,7 +15,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/app")
 
 # Add source to this project's executable.
 
-add_executable (Bank-System "app/main.cpp" "app/src/person.cpp" "app/src/employee.cpp" "app/src/admin.cpp" "app/src/client.cpp"  "app/src/generalFunctions.cpp"  "app/src/screen.cpp" "app/src/authFun.cpp")
+add_executable (Bank-System "app/main.cpp" "app/src/person.cpp" "app/src/employee.cpp" "app/src/admin.cpp" "app/src/client.cpp"  "app/src/generalFunctions.cpp"  "app/src/screen.cpp" "app/src/authFun.cpp" "app/src/validation.cpp")
 
 target_include_directories(Bank-System PRIVATE "app/include" "app/thirdParty" "app/database")
 

@@ -97,9 +97,9 @@ string Validation::valid_email() {
     string errMsg = "Invalid email format. (e.g., mail@gmail.com).";
     return validate_input(is_valid_email, "Enter Email: ", errMsg);
 };
-string Validation::valid_password() {
+string Validation::valid_password(string qus) {
     string errMsg = "Invalid password. Can't be less than 8 characters.";
-    return validate_input(is_valid_password, "Enter Password: ", errMsg);
+    return validate_input(is_valid_password, qus, errMsg);
 };
 double Validation::valid_amount(const double& min, const double& max) {
     string errMsg = "Invalid amount. Please enter a value between $" + toDec(min) + "and $" + toDec(max);
