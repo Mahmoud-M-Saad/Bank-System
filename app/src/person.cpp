@@ -8,8 +8,8 @@ void Person::setPhone(string phone) { this->phone = phone; };
 void Person::setEmail(string email) { this->email = email; };
 void Person::setPassword(string password) { this->password = password; };
 
-//int Person::getId() const { return id; };
-//string Person::getName() const { return name; };
+int Person::getId() const { return id; };
+string Person::getName() const { return name; };
 string Person::getPhone() const { return phone; };
 string Person::getEmail() const { return email; };
-//string Person::getPassword() const { return password; };
+string Person::getPassword() const { return password; };

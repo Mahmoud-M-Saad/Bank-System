@@ -11,24 +11,24 @@
         "balance": 1000.0,
         "email": "Saad@mail.com",
         "id": 1,
-        "name": "Saad",
-        "password": "123",
-        "phone": "Phone"
+        "name": "MSaad",
+        "password": "123456789",
+        "phone": "010"
     },
     {
         "balance": 1000.0,
-        "email": "Email",
+        "email": "abdo@mail.com",
         "id": 2,
         "name": "Abdo",
-        "password": "123",
-        "phone": "Phone"
+        "password": "123456789",
+        "phone": "012"
     },
     {
         "balance": 2000.0,
-        "email": "Email",
+        "email": "ali@mail.com",
         "id": 3,
         "name": "Ali",
-        "password": "123",
-        "phone": "Phone"
+        "password": "123456789",
+        "phone": "015"
     }
 ]

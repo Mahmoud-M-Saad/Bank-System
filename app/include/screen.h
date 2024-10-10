@@ -4,6 +4,7 @@
 #include "generalFunctions.h"
 using namespace std;
 
-void printClientMenu();
-void printEmployeeMenu();
+void printSuperAdminMenu();
 void printAdminMenu();
+void printEmployeeMenu();
+void printClientMenu();
