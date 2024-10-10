@@ -7,6 +7,9 @@
 #include <screen.h>
 using namespace std;
 
+void loadAllJSONs();
+void saveAllJSONs();
+
 // Template function for getting a user by ID
 template <typename UserType>
 UserType* getUserByID(vector<UserType>& users, int id);
@@ -63,15 +66,13 @@ void staffActionsOn(vector<UserType>& userList, char userType, string name) {
 			break;
 
 		case '7':
-			// go to login page
+			return;
 			break;
 
 		case '8':
 			system("CLS");
-			drawText("Thank YOU!");
-			saveEmpsToJson();
-			saveClientsToJson();
-			saveAdminsToJson();
+			drawText("  Thank YOU!");
+			saveAllJSONs();
 			exit(0);
 
 		default:
@@ -80,6 +81,7 @@ void staffActionsOn(vector<UserType>& userList, char userType, string name) {
 		};
 		system("pause");
 	} while (true);
+	return;
 };
 
 void clientActions(Client& c, string name);

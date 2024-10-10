@@ -23,11 +23,11 @@ public:
 	void setPassword(string password);
 
 	//! Getters
-	int getId()const;
-	string getName()const;
+	int getId() const;
+	string getName() const;
 	string getPhone() const;
 	string getEmail() const;
-	string getPassword()const;
+	string getPassword() const;
 
 	//! Methods
 	virtual void displayInfo() = 0;

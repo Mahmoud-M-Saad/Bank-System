@@ -24,7 +24,7 @@ void addUser(vector<Ty>& userVector, char userType) {
 	string name = Validation::valid_name();
 	string phone = Validation::valid_phone();
 	string email = Validation::valid_email();
-	string password = Validation::valid_password();
+	string password = Validation::valid_password("Enter Your Password: ");
 	int id = (!userVector.empty()) ? userVector[userVector.size() - 1].getId() + 1 : 1;
 	string msg;  double amount;
 
@@ -81,6 +81,7 @@ void getAllUsers(vector<Ty>& userVector) {
 //! Update
 template <typename Ty>
 void updateUser(Ty& user, char userType) {
+	user->setPassword(Validation::valid_password("Enter Your New Password: "));
 	char option;
 	askMsg("What is the field you want to edit?\n");
 	askMsg("1. Name\n2. Phone\n3. Email\n4. Password");
@@ -108,7 +109,7 @@ void updateUser(Ty& user, char userType) {
 		successMsg("Email updated successfully.");
 		break;
 	case '4':
-		user->setPassword(Validation::valid_password());
+		updatePassword(user);
 		successMsg("Password updated successfully.");
 		break;
 	case '5':
@@ -121,7 +122,7 @@ void updateUser(Ty& user, char userType) {
 		user->setName(Validation::valid_name());
 		user->setPhone(Validation::valid_phone());
 		user->setEmail(Validation::valid_email());
-		user->setPassword(Validation::valid_password());
+		updatePassword(user);
 		(userType == 'C') ?
 			user->setBalance(Validation::valid_amount(1, 1000000.0)) :
 			user->setSalary(Validation::valid_amount(5000.0, 25000.0));
@@ -129,6 +130,33 @@ void updateUser(Ty& user, char userType) {
 		break;
 	}
 };
+
+//valid then ask for new like Gmail
+template <typename Ty>
+void updatePassword(Ty* user) {
+	while (true) {
+		string password = Validation::valid_password("Enter Your Old Password: ");
+		if (user->getPassword() == password) {
+			user->setPassword(Validation::valid_password("Enter Your New Password: "));
+			break;
+		}
+		errorMsg("Incorrect password.");
+	};
+};
+
+// Ask for both then valid
+/* template <typename Ty>
+void updatePassword(Ty* user) {
+	while (true) {
+		string oldpassword = Validation::valid_password("Enter Your Old Password: ");
+		string newPassword = Validation::valid_password("Enter Your New Password: ");
+		if (user->getPassword() == oldpassword) {
+			user->setPassword(newPassword);
+			break;
+		}
+		errorMsg("The old password is incorrect.");
+	};
+}; */
 
 //! Delete
 template <typename Ty>

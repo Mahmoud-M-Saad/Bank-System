@@ -18,6 +18,6 @@ public:
 	static string valid_name();
 	static string valid_phone();
 	static string valid_email();
-	static string valid_password();
+	static string valid_password(string qus);
 	static double valid_amount(const double& min, const double& max);
 };

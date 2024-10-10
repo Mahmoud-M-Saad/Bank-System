@@ -1,5 +1,16 @@
 #include "authFun.h"
 
+void loadAllJSONs() {
+	loadEmpsFromJson();
+	loadClientsFromJson();
+	loadAdminsFromJson();
+};
+void saveAllJSONs() {
+	saveEmpsToJson();
+	saveClientsToJson();
+	saveAdminsToJson();
+};
+
 template <typename UserType>
 UserType* getUserByID(vector<UserType>& users, int id) {
 	auto it = find_if(users.begin(), users.end(), [id](const UserType& u) { return u.getId() == id; });
@@ -29,7 +40,7 @@ Person* login() {
 	string Sid, password;
 	do {
 		Sid = Validation::valid_Sid();
-		password = Validation::valid_password();		
+		password = Validation::valid_password("Enter Your Password: ");
 
 		char userType = Sid[0]; // 1st => E,C,A
 		int id = stoi(Sid.erase(0, 4)); // last => real id
@@ -99,18 +110,18 @@ void clientActions(Client& c, string name) {
 			c.transferTo(*c2); break;
 
 		case '6':
-			cout << "6- Update your Password\n"; break;
+			updatePassword(&c);
+			successMsg("Password updated successfully.");
+			break;
 
 		case '7':
-			// go to login page
+			return;
 			break;
 
 		case '8':
 			system("CLS");
-			drawText("Thank YOU!");
-			saveEmpsToJson();
-			saveClientsToJson();
-			saveAdminsToJson();
+			drawText("  Thank YOU!");
+			saveAllJSONs();
 			exit(0);
 
 		default:

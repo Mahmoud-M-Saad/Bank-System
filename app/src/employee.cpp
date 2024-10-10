@@ -12,7 +12,7 @@ void Employee::displayInfo() {
 	cout << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
 		 << "|         Employee Card         |" << endl
 		 << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
-		 << "    ID: " << id << endl
+		 << "    ID: " << "E254" << id << endl
 		 << "    Name: " << name << endl
 		 << "    Phone: " << phone << endl
 		 << "    Email: " << email << endl
@@ -21,6 +21,7 @@ void Employee::displayInfo() {
 };
 void Employee::performAction() {
     staffActionsOn<Client>(client, 'C', name);
+    return;
 };
 
 //! To convert JSON type to Employee type and vice versa

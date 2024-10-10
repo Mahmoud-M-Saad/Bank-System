@@ -9,7 +9,7 @@ void Admin::displayInfo() {
 	cout << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
 		 << "|          Admin Card           |" << endl
 		 << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
-		 << "    ID: " << id << endl
+		 << "    ID: " << "A283" << id << endl
 		 << "    Name: " << name << endl
 		 << "    Phone: " << phone << endl
 		 << "    Email: " << email << endl

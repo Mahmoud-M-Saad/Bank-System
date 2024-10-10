@@ -12,7 +12,7 @@ void Client::displayInfo() {
     cout << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
          << "|          Client Card          |" << endl
          << "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=" << endl
-         << "    ID: " << id << endl
+         << "    ID: " << "C372" << id << endl
          << "    Name: " << name << endl
          << "    Phone: " << phone << endl
          << "    Email: " << email << endl
@@ -21,6 +21,7 @@ void Client::displayInfo() {
 };
 void Client::performAction() {
     clientActions(*this, name);
+    return;
 };
 
 void Client::deposit() {
