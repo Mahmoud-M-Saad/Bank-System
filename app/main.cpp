@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 	loadAllJSONs();
 	start:
-	drawText("  NAME BANK");
+	drawText("  JSON BANK");
 
 	Person* user = login();
     user->performAction();

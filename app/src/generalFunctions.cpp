@@ -129,8 +129,11 @@ void printText(string text) {
 		case 'Z':
 			v.push_back("00007E02040810207E00");
 			break;
-		case '!':
+		case '!':        
 			v.push_back("00000808080808000800");
+			break;
+		case '.':        
+			v.push_back("00000000000000181800");
 			break;
 
 		default:
@@ -147,15 +150,12 @@ void drawText(string text) {
 };
 const void printUserName(const string& name) {
 	string firstName = name.substr(0, name.find(' '));
-
-	system("cls");
-
 	if (firstName.size() > 8) {
-		cout << "Hi!" + name << endl << endl;
+		firstName = firstName.substr(0, 5) + "...";
 	}
-	else {
-		cout << "\033[1;34m";
-		printText("  HI! " + firstName);
-		cout << "\033[0m" << endl;
-	}
+
+	system("cls"); 
+	cout << "\033[1;34m"; 
+	printText("  HI! " + firstName);
+	cout << "\033[0m" << endl;
 };

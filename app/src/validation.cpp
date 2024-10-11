@@ -19,7 +19,7 @@ string validate_input(Func validation_func, const string& prompt, const string& 
     string input{};
     while (true) {
         askMsg(prompt);
-        if (prompt == "Enter Your Password: ") {
+        if (prompt.find("Password") != -1) {
             input = hash_password(input);
             cout << endl;
         }
@@ -52,7 +52,7 @@ static bool is_valid_phone(const string& phone) {
     return regex_match(phone, phoneRegex);
 };
 static bool is_valid_email(const string& email) {
-    regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+    regex emailRegex(R"([a-zA-Z0-9._%+-]{4,}@[a-zA-Z0-9.-]{4,}\.[a-zA-Z]{2,})");
     //! check if the email is already found
     return (regex_match(email, emailRegex) && email.length() <= 40);
 };
