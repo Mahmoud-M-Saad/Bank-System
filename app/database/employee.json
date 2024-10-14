@@ -1,26 +1,26 @@
 [
-  {
-    "email": "Email",
-    "id": 0,
-    "name": "Name",
-    "password": "pass",
-    "phone": "phone",
-    "salary": 50000.1
-  },
-  {
-    "email": "mail@mail.com",
-    "id": 1,
-    "name": "EMP SAAD",
-    "password": "123456789",
-    "phone": "01001946432",
-    "salary": 50000.1
-  },
-  {
-    "email": "mail2@mail.com",
-    "id": 2,
-    "name": "EMP Adbo",
-    "password": "987654321",
-    "phone": "012",
-    "salary": 50000.1
-  }
+    {
+        "email": "Email",
+        "id": 0,
+        "name": "Name",
+        "password": "pass",
+        "phone": "phone",
+        "salary": 50000.1
+    },
+    {
+        "email": "saad@mail.com",
+        "id": 1,
+        "name": "EMahmoud Saad",
+        "password": "123456789",
+        "phone": "01001946432",
+        "salary": 50000.1
+    },
+    {
+        "email": "abdo@mail.com",
+        "id": 2,
+        "name": "EAbdo Nassary",
+        "password": "123456789",
+        "phone": "01001946432",
+        "salary": 50000.1
+    }
 ]

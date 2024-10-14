@@ -19,7 +19,7 @@ string validate_input(Func validation_func, const string& prompt, const string& 
     string input{};
     while (true) {
         askMsg(prompt);
-        if (prompt == "Enter Your Password: ") {
+        if (prompt.find("Password") != -1) {
             input = hash_password(input);
             cout << endl;
         }
@@ -31,8 +31,17 @@ string validate_input(Func validation_func, const string& prompt, const string& 
     }
 };
 
-static bool is_valid_id(const string& idStr) {
-    return !(idStr.empty() || !all_of(idStr.begin(), idStr.end(), ::isdigit));
+static bool is_valid_choice(const string& choice) {
+    regex choiceRegex(R"(^[1-8YNyn]$)"); // one char from 1 to 7
+    return (regex_match(choice, choiceRegex));
+};
+static bool is_valid_sub_choice(const string& sub_choice) {
+    regex sub_choiceRegex(R"(^[CEA]$)"); // one char C/c or E/e 
+    return (regex_match(sub_choice, sub_choiceRegex));
+};
+static bool is_valid_Sid(const string& Sid) {
+    regex SidRegex(R"(^[EAC][a-zA-Z0-9]{3}[1-9]\d{0,2}$)");
+    return (regex_match(Sid, SidRegex));
 };
 static bool is_valid_name(const string& name) {
     regex nameRegex(R"(^\s*([a-zA-Z]+(?:\s+[a-zA-Z]+)*)\s*$)");
@@ -43,7 +52,7 @@ static bool is_valid_phone(const string& phone) {
     return regex_match(phone, phoneRegex);
 };
 static bool is_valid_email(const string& email) {
-    regex emailRegex(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+    regex emailRegex(R"([a-zA-Z0-9._%+-]{4,}@[a-zA-Z0-9.-]{4,}\.[a-zA-Z]{2,})");
     //! check if the email is already found
     return (regex_match(email, emailRegex) && email.length() <= 40);
 };
@@ -56,26 +65,41 @@ static bool is_valid_amount(const string& input, double min, double max) {
     return !(ss.fail() || !ss.eof() || amount < min || amount > max);
 };
 
+char Validation::valid_choice() {
+    string qus = "Please select only one of these options: ";
+    string errMsg = "Please choose a valid option.";
+    return (validate_input(is_valid_choice, qus, errMsg)).at(0);
+};
+char Validation::valid_sub_choice() {
+    string qus = "Choose Operations on Client or Employee or another Admin (C/E/A): ";
+    string errMsg = "Invalid input. Please enter only one character (C/E/A).";
+    return (validate_input(is_valid_sub_choice, qus, errMsg)).at(0);
+};
 int Validation::valid_id() {
-    string errMsg = "Invalid ID. Please enter a numerical value.";
-    string idStr = validate_input(is_valid_id, "Enter ID: ", errMsg);
-    return stoi(idStr);
+    string errMsg = "Invalid ID.";
+    string Sid = validate_input(is_valid_Sid, "Enter ID: ", errMsg);
+    int id = stoi(Sid.erase(0, 4));
+    return id;
+};
+string Validation::valid_Sid() {
+    string errMsg = "Invalid ID.";
+    return validate_input(is_valid_Sid, "Enter ID: ", errMsg);
 };
 string Validation::valid_name() {
     string errMsg = "Invalid name. Name must be 5-20 alphabetic characters.";
-    return validate_input(is_valid_name, "Enter Your Name: ", errMsg);
+    return validate_input(is_valid_name, "Enter Name: ", errMsg);
 };
 string Validation::valid_phone() {
     string errMsg = "Invalid Egyptian phone number. Phone should start with 010, 011, 012, or 015 (e.g., 01012345678).";
-    return validate_input(is_valid_phone, "Enter Your Phone: ", errMsg);
+    return validate_input(is_valid_phone, "Enter Phone: ", errMsg);
 };
 string Validation::valid_email() {
     string errMsg = "Invalid email format. (e.g., mail@gmail.com).";
-    return validate_input(is_valid_email, "Enter Your Email: ", errMsg);
+    return validate_input(is_valid_email, "Enter Email: ", errMsg);
 };
-string Validation::valid_password() {
+string Validation::valid_password(string qus) {
     string errMsg = "Invalid password. Can't be less than 8 characters.";
-    return validate_input(is_valid_password, "Enter Your Password: ", errMsg);
+    return validate_input(is_valid_password, qus, errMsg);
 };
 double Validation::valid_amount(const double& min, const double& max) {
     string errMsg = "Invalid amount. Please enter a value between $" + toDec(min) + "and $" + toDec(max);

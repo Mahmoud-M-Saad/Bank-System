@@ -13,16 +13,16 @@ public:
 
     //! Setters
     void setBalance(double balance);
+    void setSalary(double salary) {};
 
     //! Getters
-    int getId() const;
-    string getName() const;
-    string getPassword() const;
     double getBalance() const;
 
     //! Methods
-    void updateClient();
     void displayInfo();
+    void performAction();
+
+    //! Special Methods
     void deposit();
     void withdraw();
     void checkBalance();
@@ -30,19 +30,5 @@ public:
 };
 
 extern vector<Client> client;
-
-//! CRUD Operations
-void addClient();
-//Client* getClientByID(int id);
-void getAllClients();
-void deleteClientByID(int id);
-void deleteAllClients();
-
-Client* getClientById();
-void clientActions(char choice, Client& c);
-
-//! For JSON File
 void loadClientsFromJson();
 void saveClientsToJson();
-
-void printAllClients();
