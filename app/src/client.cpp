@@ -50,20 +50,34 @@ void Client::checkBalance() {
 }
 void Client::transferTo(Client& recipient) {
     double amount;
-    if (recipient.balance <= 0) {
-        amount = Validation::valid_amount(1500, 1000000);
-    }
-    else {
+    amount = (recipient.balance <= 0) ?
+        amount = Validation::valid_amount(1500, 1000000):
         amount = Validation::valid_amount(1, 1000000);
-    }
+    //if (recipient.balance <= 0) {
+    //    amount = Validation::valid_amount(1500, 1000000);
+    //}
+    //else {
+    //    amount = Validation::valid_amount(1, 1000000);
+    //}
 
     if (amount > balance) {
         errorMsg("The amount cannot exceed your balance $" + toDec(balance) + ". Please try again.");
     }
+    else if (id == recipient.id) {
+        errorMsg("Sorry! You can't transfer money to yourself. Please try again.");
+    }
     else {
-        balance -= amount;
-        recipient.balance += amount;
-        successMsg("Successfully transferred $" + toDec(amount) + " to " + recipient.name);
+        askMsg("Are you sure you want to transfer $" + toDec(amount) + " to \"" + recipient.name + "\" (Y/N): ");
+        char confirm = Validation::valid_choice();
+        if (confirm == 'y' || confirm == 'Y') {
+            balance -= amount;
+            recipient.balance += amount;
+            successMsg("Successfully transferred $" + toDec(amount) + " to " + recipient.name);
+        }
+        else {
+            InfoMsg("Thanks for using our Bank,\nwe will return you to the options page.\n");
+            return;
+        }
     }
 };
 

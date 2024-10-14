@@ -32,7 +32,7 @@ string validate_input(Func validation_func, const string& prompt, const string& 
 };
 
 static bool is_valid_choice(const string& choice) {
-    regex choiceRegex(R"(^[1-8]$)"); // one char from 1 to 7
+    regex choiceRegex(R"(^[1-8YNyn]$)"); // one char from 1 to 7
     return (regex_match(choice, choiceRegex));
 };
 static bool is_valid_sub_choice(const string& sub_choice) {
@@ -40,7 +40,7 @@ static bool is_valid_sub_choice(const string& sub_choice) {
     return (regex_match(sub_choice, sub_choiceRegex));
 };
 static bool is_valid_Sid(const string& Sid) {
-    regex SidRegex(R"(^[EAC][a-zA-Z0-9]{3,4}\d{1,2}$)");
+    regex SidRegex(R"(^[EAC][a-zA-Z0-9]{3}[1-9]\d{0,2}$)");
     return (regex_match(Sid, SidRegex));
 };
 static bool is_valid_name(const string& name) {
@@ -71,7 +71,7 @@ char Validation::valid_choice() {
     return (validate_input(is_valid_choice, qus, errMsg)).at(0);
 };
 char Validation::valid_sub_choice() {
-    string qus = "Choose Operations on Client or Employee (C/E/A): ";
+    string qus = "Choose Operations on Client or Employee or another Admin (C/E/A): ";
     string errMsg = "Invalid input. Please enter only one character (C/E/A).";
     return (validate_input(is_valid_sub_choice, qus, errMsg)).at(0);
 };

@@ -1,34 +1,34 @@
 [
-    {
-        "balance": 0.0,
-        "email": "Email",
-        "id": 0,
-        "name": "Name",
-        "password": "Password",
-        "phone": "Phone"
-    },
-    {
-        "balance": 1000.0,
-        "email": "Saad@mail.com",
-        "id": 1,
-        "name": "MSaad",
-        "password": "123456789",
-        "phone": "010"
-    },
-    {
-        "balance": 1000.0,
-        "email": "abdo@mail.com",
-        "id": 2,
-        "name": "Abdo",
-        "password": "123456789",
-        "phone": "012"
-    },
-    {
-        "balance": 2000.0,
-        "email": "ali@mail.com",
-        "id": 3,
-        "name": "Ali",
-        "password": "123456789",
-        "phone": "015"
-    }
+  {
+    "balance": 0.0,
+    "email": "Email",
+    "id": 0,
+    "name": "Name",
+    "password": "123456789",
+    "phone": "Phone"
+  },
+  {
+    "balance": 1000.0,
+    "email": "Saad@mail.com",
+    "id": 1,
+    "name": "MSaad",
+    "password": "123456789",
+    "phone": "010"
+  },
+  {
+    "balance": 1000.0,
+    "email": "abdo@mail.com",
+    "id": 2,
+    "name": "Abdo Nassary",
+    "password": "123456789",
+    "phone": "012"
+  },
+  {
+    "balance": 2000.0,
+    "email": "ali@mail.com",
+    "id": 3,
+    "name": "Ali Ahmed",
+    "password": "123456789",
+    "phone": "015"
+  }
 ]

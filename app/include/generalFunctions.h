@@ -109,7 +109,6 @@ void updateUser(Ty& user, char userType) {
 		break;
 	case '4':
 		updatePassword(user);
-		successMsg("Password updated successfully.");
 		break;
 	case '5':
 		(userType == 'C') ?
@@ -134,9 +133,17 @@ void updateUser(Ty& user, char userType) {
 template <typename Ty>
 void updatePassword(Ty* user) {
 	while (true) {
-		string password = Validation::valid_password("Enter the Old Password: ");
-		if (user->getPassword() == password) {
-			user->setPassword(Validation::valid_password("Enter the New Password: "));
+		string oldPassword = Validation::valid_password("Enter the Old Password: ");
+		if (user->getPassword() == oldPassword) {
+			string newPassword = Validation::valid_password("Enter the New Password: ");
+			if (newPassword == oldPassword) {
+				errorMsg("Sorry! You can't set the new password as exactly the old one.");
+				errorMsg("So, Please try again later.\n");
+				return;
+			} else {
+				user->setPassword(newPassword);
+				successMsg("Password updated successfully.");
+			};
 			break;
 		}
 		errorMsg("Incorrect password.");
@@ -160,21 +167,11 @@ void updatePassword(Ty* user) {
 //! Delete
 template <typename Ty>
 void deleteUserByID(Ty* user, vector<Ty>& userVector) {
-	if (user == nullptr || user->getId() == 0) {
-		errorMsg("Invalid user. Cannot delete.");
-		return;
-	}
-	int id = user->getId();
-	// Remove the employee from the vector
-	auto it = remove_if(userVector.begin(), userVector.end(), [id](const Ty& u) { return u.getId() == id; });
-	if (it != userVector.end()) {
-		userVector.erase(it, userVector.end()); // Erase the elements from the vector
-		successMsg("User deleted successfully.");
-	}
-	else {
-		errorMsg("Employee not found. Cannot delete.");
-	}
-}
+	auto it = userVector.begin() + (user - &userVector[0]);
+	userVector.erase(it);
+	successMsg("User deleted successfully.");
+};
+
 template <typename Ty>
 void deleteAllUsers(vector<Ty>& userVector) {
 	userVector.clear();

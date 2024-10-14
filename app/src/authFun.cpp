@@ -111,7 +111,6 @@ void clientActions(Client& c, string name) {
 
 		case '6':
 			updatePassword(&c);
-			successMsg("Password updated successfully.");
 			break;
 
 		case '7':
